@@ -11,10 +11,10 @@
   kube-API 서버 : 클러스터 내의 모든 작업을 조정
 도커 : 컨테이너 런타임 엔진
   * 지원하는 다른 런타임 엔진 : ContainerD, Rocket
-작업자 노드
-  Kublet : 작업 노드의 선장. 마스터 노드에 상태 보고. kube-API 서버의 지시를 듣고 노드에 컨테이너를 배포하거나 파괴.
-  Kube-proxy 서버 : 각 작업 노드 간의 통신에 사용.
-  
+  작업자 노드
+    Kublet : 작업 노드의 선장. 마스터 노드에 상태 보고. kube-API 서버의 지시를 듣고 노드에 컨테이너를 배포하거나 파괴.
+    Kube-proxy 서버 : 각 작업 노드 간의 통신에 사용.
+
 2022.10.17
 ETCD : key-value 타입의 설정 저장소
 
@@ -36,7 +36,7 @@ Kubelet
 Kube Proxy
   쿠버네티스에서 모든 파드가 서로 통신 가능하게 함.
   네트워크 규칙 관리
-  
+
 2022.10.19
 Recap - PODs
   컨테이너를 캡슐화한 것
@@ -49,3 +49,29 @@ PODs with YAML
   kind:
   metadata:
   spec:
+
+
+
+2022.10.24
+
+pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+	name: nginx
+	labels:
+		app: nginx
+		tier: frontend
+spec:
+	containers:
+
+	- name: nginx
+	  image: nginx
+
+kubectl apply -f pod.yaml : 파드 생성
+(apply = create)
+
+kubectl get pods : 파드 확인
+
+kubectl describe pod nginx : 파드 상세정보
+
