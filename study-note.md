@@ -11,7 +11,7 @@
   kube-API 서버 : 클러스터 내의 모든 작업을 조정
 도커 : 컨테이너 런타임 엔진
   * 지원하는 다른 런타임 엔진 : ContainerD, Rocket
-  작업자 노드
+    작업자 노드
     Kublet : 작업 노드의 선장. 마스터 노드에 상태 보고. kube-API 서버의 지시를 듣고 노드에 컨테이너를 배포하거나 파괴.
     Kube-proxy 서버 : 각 작업 노드 간의 통신에 사용.
 
@@ -75,3 +75,78 @@ kubectl get pods : 파드 확인
 
 kubectl describe pod nginx : 파드 상세정보
 
+
+
+2022.10.25
+
+Create a new pod
+
+- kubectl run `name` --image=`image-name` 
+- kubectl run `name` --image=`image-name`  --dry-run=client -o yaml 
+
+
+
+describe pods : kubectl get pods -o wide
+
+
+
+Replication Controller
+
+- high availability
+
+- load balancing & scaling
+
+- yaml 파일 구성
+
+  - apiVersion: v1
+  - kind: ReplicationController
+  - metadata:
+    - name: myapp-rc
+    - labels:
+      - app: myapp
+      - type: front-end
+  - spec:
+    - template:
+      - (apiVersion과 kind를 제외한 POD 설정)
+    - replicas: (numbers of replica sets you need)
+
+- 생성 : kubectl create -f (yaml 파일)
+
+- 조회 : kubectl get replicationcontroller
+
+  ​           kubectl get pods에서도 조회 가능
+
+
+
+Replication Controller -> ReplicaSet
+
+- yaml 파일
+
+  - apiVersion: apps/v1
+  - kind: ReplicaSet
+  - metadata:
+    - name: myapp-replicaset
+    - labels:
+      - app: myapp
+      - type: front-end
+  - spec:
+    - template:
+      - (apiVersion과 kind를 제외한 POD 설정)
+    - replicas: (numbers of replica sets you need)
+    - selector: 
+      - matchLabels:
+        - type: front-end
+
+- 생성 : kubectl create -f (yaml 파일)
+
+- 조회 : kubectl get replicaset
+
+  ​           kubectl get pods에서도 조회 가능
+
+
+
+Scale
+
+- 수정 : kubectl replace -f (yaml)
+
+  ​			kubectl scale --replicas=(값) -f (yaml)
