@@ -150,3 +150,32 @@ Scale
 - 수정 : kubectl replace -f (yaml)
 
   ​			kubectl scale --replicas=(값) -f (yaml)
+
+
+
+2022.10.26
+
+## Practice
+
+kubectl get rs
+
+kubectl describe replicaset `name`
+
+kubectl create -f `yaml file`
+
+kubectl explain replicaset
+
+kubectl delete rs `rs-name`
+
+kubectl edit rs `rs-name`
+
+kubectl scale rs `rs-name` --replicas=`숫자`
+
+
+
+Deployments
+
+- yaml 파일 : kind에 Deployments 로 바뀌는 것 빼고 ReplicaSet과 동일
+
+- kubectl get all
+
